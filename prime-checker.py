@@ -1,9 +1,9 @@
 import math
 
 def prime_checker(n):
-  for i in range(2, sqrt(n)):
+  for i in range(2, math.isqrt(n)):
     if n % i == 0:
-      return false
+      return bool(0)
     else:
       continue
-  return true
+  return bool(1)
