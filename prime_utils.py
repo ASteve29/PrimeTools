@@ -46,3 +46,19 @@ def prime_factors(n):
       return [i]
       prime_factors(n // i)
 
+def previous_prime(n):
+  prime = 0
+  if n < 3:
+    raise ValueError("n must be at least 3 to find the previous prime.")
+  for i in range(2, n):
+    if is_prime(i):
+      prime = i
+  return prime
+
+def next_prime(n):
+  num = n
+  if n <= 0:
+    raise ValueError("n must be greater than 0 to find the next prime.")
+  while not is_prime(num):
+    num = num + 1
+  return num
