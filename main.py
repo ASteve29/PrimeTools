@@ -50,6 +50,7 @@ def main():
         value = int(sys.argv[2])
     except ValueError:
         print("Error: the second argument must be a number")
+        return
 
     handle_command(command, value)
 
