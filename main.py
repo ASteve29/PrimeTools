@@ -4,7 +4,6 @@ import prime_utils as primes
 
 
 
-
 def main():
     return 0
 
