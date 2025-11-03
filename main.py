@@ -8,6 +8,7 @@ def list_commands():
     print("  prev <n>    - finds the previous prime before a number")
     print("  gen <n>     - generates primes upto a number")
     print("  count <n>   - counts the amount if primes under a number")
+    print("  fac <n>     - lists the prime factors of a number")
     print("  help        - list available commands")
 
 def handle_command(command, value):
@@ -15,13 +16,15 @@ def handle_command(command, value):
         case "check":
             print(f"{value} is prime!" if pr.is_prime(value) else f"{value} isn't prime!")
         case "next":
-            print(f"Next prime after {value} is {pr.next_prime(value)}")
+            print(f"The next prime after {value} is {pr.next_prime(value)}")
         case "prev":
-            print(f"Previous prime before {value} is {pr.previous_prime(value)}")
+            print(f"The previous prime before {value} is {pr.previous_prime(value)}")
         case "gen":
-            print(f"The primes upto {value} are {pr.generate_primes_up_to(value)}")
+            print(f"The primes up to {value} are {pr.generate_primes_up_to(value)}")
         case "count":
-            print(f"The amount of primes below {value} is {pr.count_primes_up_to(value)}")
+            print(f"The number of primes below {value} is {pr.count_primes_up_to(value)}")
+        case "fac":
+            print(f"The factors of {value} are {pr.factor(value)}")
         case _:
             print("Unknown command.")
             list_commands()
@@ -39,12 +42,16 @@ def main():
         return
 
     if len(sys.argv) < 3:
+        list_commands()
         print("Usage: python main.py <function> <number>")
         return
 
-    value = int(sys.argv[2])
+    try:
+        value = int(sys.argv[2])
+    except ValueError:
+        print("Error: the second argument must be a number")
 
-    handle_command()
+    handle_command(command, value)
 
 if __name__ == "__main__":
     main()
