@@ -30,33 +30,38 @@ def nth_prime(n):
   if n <= 0:
     raise ValueError("n must be greater than 0 to find a prime.")
   count = 0
-  for num in range(2, n + 1):
+  num = 1
+  while True:
+    num += 1
     if is_prime(num):
       count += 1
-    if count == n:
-      return num
+      if count == n:
+        return num
 
-def prime_factors(n):
-  if n < 2:
-    raise ValueError("n must be greater than 1 to factor.")
-  if is_prime(n):  
-    return [n]
-  for i in range(2, n):
-    if n % i == 0:
-      return [i]
-      prime_factors(n // i)
+def factor(n):
+    if n < 2:
+        raise ValueError("n must be greater than 1 to factor.")
+    factors = []
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            factors.append(i)
+            n //= i
+        else:
+            i += 1
+    if n > 1:
+        factors.append(n)
+    return factors
 
 def previous_prime(n):
-  prime = 0
-  if n < 3:
-    raise ValueError("n must be at least 3 to find the previous prime.")
-  for i in range(2, n):
-    if is_prime(i):
-      prime = i
-  return prime
+    if n <= 2:
+        raise ValueError("No prime exists before 2.")
+    for i in range(n - 1, 1, -1):
+        if is_prime(i):
+            return i
 
 def next_prime(n):
-  num = n
+  num = n + 1
   if n <= 0:
     raise ValueError("n must be greater than 0 to find the next prime.")
   while not is_prime(num):
