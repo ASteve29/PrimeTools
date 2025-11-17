@@ -1,41 +1,36 @@
-# prime_wrapper.pyx
-# distutils: language = c++
-
 from libcpp.vector cimport vector
+from libc.stdint cimport int64_t
 
-# --- C-linkage functions ---
+# --- C++ functions ---
 cdef extern from "prime_utils.h":
-    bint is_prime(int n)          # match exactly the header
-    int count_primes(int limit)
-    int nth_prime(int n)
-    int previous_prime(int n)
-    int next_prime(int n)
-
-# --- C++ only functions ---
-cdef extern from "prime_utils.h":
-    vector[int] generate_primes(int limit)
-    vector[int] factor(int n)
+    bint is_prime(int64_t n)
+    int64_t count_primes(int64_t limit)
+    int64_t nth_prime(int64_t n)
+    int64_t previous_prime(int64_t n)
+    int64_t next_prime(int64_t n)
+    vector[int64_t] generate_primes(int64_t limit)
+    vector[int64_t] factor(int64_t n)
 
 # --- Python wrappers ---
-def py_is_prime(int n):
-    return is_prime(n)
+def py_is_prime(n):
+    return is_prime(<int64_t>n)
 
-def py_count_primes(int limit):
-    return count_primes(limit)
+def py_count_primes(n):
+    return count_primes(<int64_t>n)
 
-def py_nth_prime(int n):
-    return nth_prime(n)
+def py_nth_prime(n):
+    return nth_prime(<int64_t>n)
 
-def py_previous_prime(int n):
-    return previous_prime(n)
+def py_previous_prime(n):
+    return previous_prime(<int64_t>n)
 
-def py_next_prime(int n):
-    return next_prime(n)
+def py_next_prime(n):
+    return next_prime(<int64_t>n)
 
-def py_generate_primes(int limit):
-    cdef vector[int] v = generate_primes(limit)
+def py_generate_primes(n):
+    cdef vector[int64_t] v = generate_primes(<int64_t>n)
     return list(v)
 
-def py_factor(int n):
-    cdef vector[int] v = factor(n)
+def py_factor(n):
+    cdef vector[int64_t] v = factor(<int64_t>n)
     return list(v)
